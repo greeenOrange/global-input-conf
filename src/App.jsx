@@ -108,7 +108,7 @@ function App() {
                   id="fullWidth"
                 />
                 <FormControl
-                required
+                  required
                 >
                   <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
                   <RadioGroup
@@ -132,13 +132,20 @@ function App() {
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
                 />
+                <Stack spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
+                <Button size="small" variant="contained">-</Button>
+                <TextField
+                  required
+                  defaultValue="0"
+                /><Button size="small" variant="contained">+</Button>
+                </Stack>
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  submit
                 </Button>
                 <Grid container>
                   <Grid item xs>
