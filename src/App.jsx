@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -12,11 +14,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
-import FormControl from '@mui/material/FormControl';
 import { InputLabel, MenuItem, Select } from '@mui/material';
-import { Textarea } from '@mui/joy';
+import { TextareaAutosize } from '@mui/base/TextareaAutosize';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 
-// import Textarea from '@mui/joy/Textarea';
 
 const defaultTheme = createTheme();
 
@@ -99,23 +101,34 @@ function App() {
                     <MenuItem value={40}>Masters</MenuItem>
                   </Select>
                 </FormControl>
-                <Textarea
-                  placeholder="Try to submit with no text!"
-                  required
-                  sx={{ mb: 1 }}
-                />
-                {/* <Textarea placeholder="Type anything…" /> */}
-                <TextField
-                  margin="normal"
-                  required
+                <TextareaAutosize
+                  style={{ width: "100%", marginTop: "1rem" }}
+                  minRows={5}
                   fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
+                  id="fullWidth"
                 />
+                <FormControl
+                required
+                >
+                  <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                  >
+                    <FormControlLabel value="female" control={<Radio />} label="Female" />
+                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                    <FormControlLabel value="other" control={<Radio />} label="Other" />
+                    <FormControlLabel
+                      value="disabled"
+                      disabled
+                      control={<Radio />}
+                      label="other"
+                    />
+                  </RadioGroup>
+                </FormControl>
                 <FormControlLabel
+                  required
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
                 />
