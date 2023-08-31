@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useReducer } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,17 +19,41 @@ import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 
-
 const defaultTheme = createTheme();
 
 function App() {
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  gender: "",
+  education: "",
+  quantity: 0,
+  feedback: "",
+  term: true,
+};
+const reducer = (state, action) =>{
+  switch (action.type){
+    case "INPUT" :
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
+      }
+      default :
+        return state
+    }
+  };
+const [state, dispatch] = useReducer(reducer, initialState)
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    console.log(state);
+    // console.log({
+    //   email: data.get('email'),
+    //   password: data.get('password'),
+    // });
   };
 
   return (
@@ -63,9 +87,13 @@ function App() {
                   fullWidth
                   id="name"
                   label="First Name"
-                  name="name"
+                  name="firstName"
                   autoComplete="name"
                   autoFocus
+                  onChange={(e) => dispatch({
+                    type: "INPUT",
+                    payload: {name: e.target.name, value: e.target.value},
+                  })}
                 />
                 <TextField
                   margin="normal"
@@ -73,9 +101,13 @@ function App() {
                   fullWidth
                   id="name"
                   label="last Name"
-                  name="name"
+                  name="lastName"
                   autoComplete="text"
                   autoFocus
+                  onChange={(e) => dispatch({
+                    type: "INPUT",
+                    payload: {name: e.target.name, value: e.target.value},
+                  })}
                 />
                 <TextField
                   margin="normal"
@@ -86,6 +118,10 @@ function App() {
                   name="email"
                   autoComplete="email"
                   autoFocus
+                  onChange={(e) => dispatch({
+                    type: "INPUT",
+                    payload: {name: e.target.name, value: e.target.value},
+                  })}
                 />
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Education</InputLabel>
@@ -93,12 +129,17 @@ function App() {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="Education"
+                    name="education"
+                    onChange={(e) => dispatch({
+                      type: "INPUT",
+                      payload: {name: e.target.name, value: e.target.value},
+                    })}
                   // onChange={handleChange}
                   >
-                    <MenuItem value={10}>SSC</MenuItem>
-                    <MenuItem value={20}>HSC</MenuItem>
-                    <MenuItem value={30}>Houners</MenuItem>
-                    <MenuItem value={40}>Masters</MenuItem>
+                    <MenuItem value="SSC">SSC</MenuItem>
+                    <MenuItem value="HSC">HSC</MenuItem>
+                    <MenuItem value="Houners">Houners</MenuItem>
+                    <MenuItem value="Masters">Masters</MenuItem>
                   </Select>
                 </FormControl>
                 <TextareaAutosize
@@ -106,6 +147,7 @@ function App() {
                   minRows={5}
                   fullWidth
                   id="fullWidth"
+                  name="feedback"
                 />
                 <FormControl
                   required
@@ -116,9 +158,30 @@ function App() {
                     aria-labelledby="demo-row-radio-buttons-group-label"
                     name="row-radio-buttons-group"
                   >
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />
-                    <FormControlLabel value="other" control={<Radio />} label="Other" />
+                    <FormControlLabel
+                    onClick={(e) => dispatch({
+                      type: "INPUT",
+                      payload: {name: e.target.name, value: e.target.value},
+                    })}
+                    value="female" control={<Radio />} 
+                    label="Female" name="gender" 
+                    />
+                    <FormControlLabel
+                    onClick={(e) => dispatch({
+                      type: "INPUT",
+                      payload: {name: e.target.name, value: e.target.value},
+                    })} 
+                    value="male" control={<Radio />} 
+                    label="Male" name="gender"
+                    />
+                    <FormControlLabel
+                    onClick={(e) => dispatch({
+                      type: "INPUT",
+                      payload: {name: e.target.name, value: e.target.value},
+                    })} 
+                    value="other" control={<Radio />} 
+                    label="Other" name="gender"
+                    />
                     <FormControlLabel
                       value="disabled"
                       disabled
@@ -128,6 +191,7 @@ function App() {
                   </RadioGroup>
                 </FormControl>
                 <FormControlLabel
+                  
                   required
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
