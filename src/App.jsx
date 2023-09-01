@@ -46,6 +46,16 @@ const reducer = (state, action) =>{
             ...state,
             term: !state.term,
         }
+        case "DECREASE":
+          return{
+            ...state,
+            quantity: state.quantity - 1
+          }
+        case "INCREASE":
+          return{
+            ...state,
+            quantity: state.quantity + 1
+          }
       default :
         return state
     }
@@ -203,11 +213,16 @@ const [state, dispatch] = useReducer(reducer, initialState)
                   label="Remember me"
                 />
                 <Stack spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
-                <Button size="small" variant="contained">-</Button>
+                <Button 
+                onClick={() => dispatch({type: "DECREASE"})}
+                size="small" variant="contained"
+                >-</Button>
                 <TextField
                   required
-                  defaultValue="0"
-                /><Button size="small" variant="contained">+</Button>
+                  value={state?.quantity}
+                /><Button 
+                onClick={() => dispatch({type: "INCREASE"})}
+                size="small" variant="contained">+</Button>
                 </Stack>
                 <Button
                   disabled={!state.term}
