@@ -31,8 +31,9 @@ const initialState = {
   education: "",
   quantity: 0,
   feedback: "",
-  term: true,
+  term: false,
 };
+
 const reducer = (state, action) =>{
   switch (action.type){
     case "INPUT" :
@@ -40,20 +41,21 @@ const reducer = (state, action) =>{
         ...state,
         [action.payload.name]: action.payload.value,
       }
+      case "TOGGLE":
+        return{
+            ...state,
+            term: !state.term,
+        }
       default :
         return state
     }
   };
+
 const [state, dispatch] = useReducer(reducer, initialState)
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
     console.log(state);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
   };
 
   return (
@@ -143,11 +145,15 @@ const [state, dispatch] = useReducer(reducer, initialState)
                   </Select>
                 </FormControl>
                 <TextareaAutosize
+                  name="textarea"
                   style={{ width: "100%", marginTop: "1rem" }}
                   minRows={5}
                   fullWidth
                   id="fullWidth"
-                  name="feedback"
+                  onChange={(e) => dispatch({
+                    type: "INPUT",
+                    payload: {name: e.target.name, value: e.target.value},
+                  })}
                 />
                 <FormControl
                   required
@@ -191,7 +197,7 @@ const [state, dispatch] = useReducer(reducer, initialState)
                   </RadioGroup>
                 </FormControl>
                 <FormControlLabel
-                  
+                  onClick={() => dispatch({type: "TOGGLE"})}
                   required
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
@@ -204,6 +210,7 @@ const [state, dispatch] = useReducer(reducer, initialState)
                 /><Button size="small" variant="contained">+</Button>
                 </Stack>
                 <Button
+                  disabled={!state.term}
                   type="submit"
                   fullWidth
                   variant="contained"
