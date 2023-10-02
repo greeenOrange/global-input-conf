@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { useContext, createContext, useState, useEffect } from "react";
+import { useContext, createContext, useEffect } from "react";
 import { initialState, productReducer } from "../State/ProductReducer";
 import { actionTypes } from "../State/actionTypes";
 
@@ -7,7 +7,7 @@ export const ProductsContext = createContext();
 
 export default function ProductsContextProvider({ children }) {
     const [state, dispatch] = useReducer(productReducer, initialState)
-
+    console.log(state);
     useEffect(() => {
         dispatch({type: actionTypes.FETCHING_START})
         const url = `https://my-json-server.typicode.com/greeenOrange/moon-tech-server/products`
