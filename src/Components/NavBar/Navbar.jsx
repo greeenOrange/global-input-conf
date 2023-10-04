@@ -8,10 +8,8 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom';
-import { useProducts } from '../../Context/ProductProvider';
 
 function Navbar() {
-  const { state: { cart, loading, error } } = useProducts();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -63,7 +61,7 @@ function Navbar() {
             >
                 <Link to="/cart">
                 <ShoppingCart />
-                {cart?.length}
+
                 </Link>
             </IconButton>
             <IconButton

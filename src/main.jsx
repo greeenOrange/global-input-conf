@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import routers from './routers/routers'
-import ProductsContextProvider from './Context/ProductProvider'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ProductsContextProvider>
+    <Provider store={store}>
     <RouterProvider router={routers} />
-    </ProductsContextProvider>
+    </Provider>
   </React.StrictMode>,
 )
