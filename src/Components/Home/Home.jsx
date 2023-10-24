@@ -9,7 +9,7 @@ const Home = () => {
   const state = useSelector((state) => state)
   console.log(state);
   useEffect(() => {
-    fetch('/db.json')
+    fetch('https://moon-tech-server-bnbv.onrender.com/products')
       .then(res => res.json())
       .then(data => setProducts(data))
   }, [])
